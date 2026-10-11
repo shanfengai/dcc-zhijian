@@ -8,7 +8,7 @@
 
 1. 全店总览与评分水位
 
-![全店总览](assets/screenshots/01-overview.png)
+![全店总览](assets/screenshots/03-root-cause.png)
 
 2. 座席对照与关键原话证据
 
@@ -16,7 +16,7 @@
 
 3. 根因分析与改进建议
 
-![根因分析](assets/screenshots/03-root-cause.png)
+![根因分析](assets/screenshots/01-overview.png)
 
 在线展示页：[DCC Zhijian](https://shanfengai.github.io/dcc-zhijian/)
 
