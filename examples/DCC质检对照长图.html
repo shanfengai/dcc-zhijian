@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DCC 话术质检对照报告 · 盲订期首触版</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"PingFang SC","HarmonyOS Sans","Microsoft YaHei",sans-serif;
+         background:#FFF5F6; color:#2B2B2B; line-height:1.6; }
+  .container { width:1080px; margin:0 auto; background:#FFF5F6; }
+  .header { background:#C4001C; color:#fff; padding:32px 48px;
+            display:flex; justify-content:space-between; align-items:center; }
+  .breadcrumb { font-size:14px; opacity:.95; }
+  .phase-badge { background:#fff; color:#C4001C; padding:6px 16px;
+                 border-radius:20px; font-size:13px; font-weight:bold; }
+  .title-area { padding:40px 48px 24px; }
+  .title-area h1 { font-size:36px; font-weight:bold; margin-bottom:12px; }
+  .subtitle { font-size:14px; color:#6E6E6E; line-height:1.8; }
+  .compliance-bar { margin:0 48px 8px; background:#EDEDED; padding:16px 24px;
+                    border-radius:8px; font-size:13px; line-height:1.8; }
+  .compliance-bar .icon { margin-right:8px; }
+  .part-divider { margin:48px 0 32px; background:#FDECEE; text-align:center;
+                  padding:18px 0; font-size:20px; font-weight:bold;
+                  color:#C4001C; letter-spacing:2px; }
+  .part-divider .part-sub { display:block; font-size:12px; color:#6E6E6E;
+                            font-weight:normal; letter-spacing:0; margin-top:4px; }
+  .section { margin:0 48px 40px; }
+  .section-title { font-size:22px; font-weight:bold; margin-bottom:20px;
+                   display:flex; align-items:center; }
+  .section-title::before { content:""; width:8px; height:24px;
+                           background:#C4001C; margin-right:12px; }
+  .section-note { font-size:13px; color:#6E6E6E; margin-top:12px; font-style:italic; }
+  .kpi-cards { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:16px; }
+  .kpi-card { background:#fff; border-radius:10px; padding:24px;
+              box-shadow:0 2px 4px rgba(0,0,0,.04); border-left:4px solid #C4001C; }
+  .kpi-card.negative { border-left-color:#7A0011; }
+  .kpi-label { font-size:13px; color:#6E6E6E; margin-bottom:8px; }
+  .kpi-value { font-size:44px; font-weight:bold; color:#C4001C; line-height:1; }
+  .kpi-card.negative .kpi-value { color:#7A0011; }
+  .kpi-note { font-size:12px; color:#6E6E6E; margin-top:8px; }
+  .bar-chart { background:#fff; border-radius:10px; padding:24px;
+               box-shadow:0 2px 4px rgba(0,0,0,.04); }
+  .bar-row { display:flex; align-items:center; margin-bottom:16px;
+             padding:12px; border-radius:6px; }
+  .bar-row:last-child { margin-bottom:0; }
+  .bar-row.highlight { background:#FDECEE; }
+  .bar-label { width:120px; font-size:14px; font-weight:bold; }
+  .bar-container { flex:1; display:flex; align-items:center; gap:12px; }
+  .bar-track { flex:1; height:24px; background:#FDECEE; border-radius:12px; overflow:hidden; }
+  .bar-fill { height:100%; background:#C4001C; border-radius:12px; }
+  .bar-value { min-width:48px; font-size:14px; font-weight:bold; }
+  .bar-delta { min-width:80px; font-size:13px; color:#7A0011;
+               font-weight:bold; text-align:right; }
+  .opportunity-cards { background:#FFF9F0; border-left:4px solid #E48E3A;
+                       border-radius:8px; padding:24px; }
+  .opportunity-item { margin-bottom:16px; padding-bottom:16px;
+                      border-bottom:1px solid #EDEDED; display:flex;
+                      justify-content:space-between; align-items:baseline; gap:16px; }
+  .opportunity-item:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .opportunity-title { font-size:14px; font-weight:bold; color:#B96A1B; flex:1; }
+  .opportunity-detail { font-size:13px; flex:1.4; }
+  .opportunity-rate { font-size:13px; font-weight:bold; color:#E48E3A; white-space:nowrap; }
+  .ranking-table { background:#fff; border-radius:10px; overflow:hidden;
+                   box-shadow:0 2px 4px rgba(0,0,0,.04); }
+  .ranking-table table { width:100%; border-collapse:collapse; }
+  .ranking-table th { background:#C4001C; color:#fff; padding:14px 12px;
+                      font-size:13px; font-weight:bold; text-align:center; }
+  .ranking-table td { padding:14px 12px; font-size:14px;
+                      border-bottom:1px solid #EDEDED; text-align:center; }
+  .ranking-table tr:last-child td { border-bottom:none; }
+  .ranking-table tr.top-row { background:#FBEFC8; }
+  .ranking-table tr.bottom-row { box-shadow:inset 4px 0 0 #7A0011; }
+  .ranking-table .star { color:#C4001C; font-size:15px; margin-right:4px; }
+  .ranking-table .negative { color:#7A0011; font-weight:bold; }
+  .agent-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .agent-card { background:#fff; border-radius:10px; padding:18px;
+                box-shadow:0 2px 4px rgba(0,0,0,.04); border-top:3px solid #C4001C; }
+  .agent-card.warning { border-top-color:#7A0011; }
+  .agent-header { font-size:15px; font-weight:bold; margin-bottom:6px; }
+  .agent-score { font-size:30px; font-weight:bold; color:#C4001C; line-height:1.1; }
+  .agent-card.warning .agent-score { color:#7A0011; }
+  .agent-level { font-size:12px; color:#6E6E6E; margin-bottom:10px; }
+  .agent-desc { font-size:12px; color:#6E6E6E; line-height:1.7; }
+  .agent-desc strong { color:#2B2B2B; }
+  .quote-block { background:#FDECEE; border-left:4px solid #C4001C;
+                 border-radius:8px; padding:20px; margin-bottom:16px; }
+  .quote-block:last-child { margin-bottom:0; }
+  .quote-block.warning { border-left-color:#E48E3A; background:#FFF9F0; }
+  .quote-block.negative { border-left-color:#7A0011; }
+  .quote-label { font-size:13px; font-weight:bold; color:#C4001C; margin-bottom:12px; }
+  .quote-block.warning .quote-label { color:#B96A1B; }
+  .quote-block.negative .quote-label { color:#7A0011; }
+  .quote-content { font-size:14px; line-height:1.8; margin-bottom:12px; }
+  .quote-content .speaker { font-weight:bold; }
+  .quote-diagnosis { font-size:13px; color:#6E6E6E; font-style:italic; }
+  .rc-card { background:#F0F4F8; border-left:4px solid #C4001C;
+             border-radius:10px; padding:28px; }
+  .rc-question { font-size:17px; font-weight:bold; margin-bottom:20px; }
+  .rc-compare { background:#fff; border-radius:8px; padding:16px 20px; margin-bottom:20px; }
+  .rc-row { display:flex; align-items:center; padding:8px 0;
+            border-bottom:1px solid #EDEDED; font-size:14px; }
+  .rc-row:last-child { border-bottom:none; }
+  .rc-dim { width:110px; font-weight:bold; }
+  .rc-val { width:70px; text-align:center; }
+  .rc-vs { width:40px; text-align:center; color:#6E6E6E; }
+  .rc-avg { width:70px; text-align:center; color:#6E6E6E; }
+  .rc-mark { flex:1; text-align:right; font-weight:bold; }
+  .rc-mark.ok { color:#C4001C; }
+  .rc-mark.bad { color:#7A0011; }
+  .rc-text { font-size:14px; line-height:1.9; margin-bottom:12px; }
+  .rc-text strong { color:#C4001C; }
+  .rc-insight { background:#fff; border-radius:8px; padding:16px 20px;
+                font-size:13px; line-height:1.9; }
+  .rc-insight strong { color:#C4001C; }
+  .dark-card { background:#2B2B2B; color:#fff; border-radius:10px; padding:28px; }
+  .dark-card .rc-question { color:#fff; }
+  .dark-block { margin-bottom:20px; }
+  .dark-block:last-child { margin-bottom:0; }
+  .dark-block-title { font-size:14px; font-weight:bold; color:#FF8A9B; margin-bottom:8px; }
+  .dark-block-body { font-size:13px; line-height:1.9; color:#E8E8E8; }
+  .dark-block-body li { margin-left:20px; margin-bottom:4px; }
+  .suggestions { background:#fff; border-radius:10px; padding:24px;
+                 box-shadow:0 2px 4px rgba(0,0,0,.04); }
+  .suggestion-item { margin-bottom:22px; padding-left:26px; position:relative; }
+  .suggestion-item:last-child { margin-bottom:0; }
+  .suggestion-item::before { content:"→"; position:absolute; left:0; top:0;
+                             color:#C4001C; font-weight:bold; font-size:18px; }
+  .suggestion-dim { font-size:15px; font-weight:bold; color:#C4001C; margin-bottom:6px; }
+  .suggestion-text { font-size:14px; line-height:1.8; margin-bottom:8px; }
+  .suggestion-template { background:#FDECEE; padding:12px 16px; border-radius:6px;
+                         font-size:13px; line-height:1.8; margin-top:8px; }
+  .easter-egg { margin:0 48px 40px; background:linear-gradient(135deg,#FFF3E0,#FFE0B2);
+                border:2px dashed #E48E3A; border-radius:12px; padding:28px;
+                text-align:center; }
+  .easter-egg h3 { font-size:20px; color:#B96A1B; margin-bottom:12px; }
+  .easter-egg p { font-size:14px; color:#5A3E1B; line-height:1.9; }
+  .footer { background:#C4001C; color:#fff; padding:20px 48px;
+            display:flex; justify-content:space-between; align-items:center; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="breadcrumb">DCC · 话术质检 · 同店座席对照 · 2026-09-30</div>
+    <div class="phase-badge">盲订期首触</div>
+  </div>
+
+  <div class="title-area">
+    <h1>DCC 话术质检对照报告</h1>
+    <div class="subtitle">
+      同店 3 座席 · 盲订期线索首触外呼 · 数据源：录音1–3 对话文字稿（爱华汽车 · 广州）<br>
+      平均通话时长 ~68 秒 · 规则对齐《线索外呼-跟进质检规则策略 0903》6 维度<br>
+      打分口径：按话术实际内容计 · 盲订期"开业后通知"计入封闭邀约
+    </div>
+  </div>
+
+  <div class="compliance-bar">
+    <div><span class="icon">ℹ</span>过度承诺词命中：<strong>0 次</strong>（3 段全部稳健，均为条件式承诺，未与具体日期或金额挂钩）</div>
+    <div><span class="icon">ℹ</span>品牌认知盲区未强化应答：<strong>0 次</strong>（本批无客户质疑品牌；但 3 通均未主动做品牌背书）</div>
+    <div><span class="icon">ℹ</span>红线触发：<strong>0 次</strong> · 平均通话字数 ~273 字 / 客服有效发言 ~248 字</div>
+  </div>
+
+  <!-- Part 1 -->
+  <div class="part-divider">
+    第一部分 · 全店数据总览
+    <span class="part-sub">先看盘子：全店整体水位在哪里</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title">全店核心指标</div>
+    <div class="kpi-cards">
+      <div class="kpi-card">
+        <div class="kpi-label">全店平均总分</div>
+        <div class="kpi-value">41.2</div>
+        <div class="kpi-note">待改进区间（30–49）</div>
+      </div>
+      <div class="kpi-card negative">
+        <div class="kpi-label">邀约成功率</div>
+        <div class="kpi-value">0%</div>
+        <div class="kpi-note">无二选一到店时间</div>
+      </div>
+      <div class="kpi-card negative">
+        <div class="kpi-label">加微率</div>
+        <div class="kpi-value">0%</div>
+        <div class="kpi-note">盲订期最核心 KPI 未达成</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">红线触发</div>
+        <div class="kpi-value">0 次</div>
+        <div class="kpi-note">合规稳健</div>
+      </div>
+    </div>
+    <div class="section-note">按 DCC 口径，全店均分 41.2，3 通全部落在"待改进"档；当前盲订期话术理论上限约 43–45 分，属正常基线水位</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">6 维度全店均分 vs 达标线</div>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">自我介绍</div>
+        <div class="bar-container">
+          <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+          <div class="bar-value">100</div>
+          <div class="bar-delta">0pp</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">封闭邀约</div>
+        <div class="bar-container">
+          <div class="bar-track"><div class="bar-fill" style="width:70%"></div></div>
+          <div class="bar-value">70</div>
+          <div class="bar-delta">-30pp</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">异议处理</div>
+        <div class="bar-container">
+          <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
+          <div class="bar-value">60</div>
+          <div class="bar-delta">-40pp</div>
+        </div>
+      </div>
+      <div class="bar-row highlight">
+        <div class="bar-label">信心建立</div>
+        <div class="bar-container">
+          <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+          <div class="bar-value">0</div>
+          <div class="bar-delta">-100pp</div>
+        </div>
+      </div>
+      <div class="bar-row highlight">
+        <div class="bar-label">需求挖掘</div>
+        <div class="bar-container">
+          <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+          <div class="bar-value">0</div>
+          <div class="bar-delta">-100pp</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">邀约成功</div>
+        <div class="bar-container">
+          <div class="bar-track"><div class="bar-fill" style="width:33%"></div></div>
+          <div class="bar-value">33</div>
+          <div class="bar-delta">-67pp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">机会流失时刻统计</div>
+    <div class="opportunity-cards">
+      <div class="opportunity-item">
+        <div class="opportunity-title">⚠ 收尾停在"再联系您"未加微保温</div>
+        <div class="opportunity-detail">3 座席全部未主动申请加微信，盲订期最核心 KPI 漏做</div>
+        <div class="opportunity-rate">3 次 · 100%</div>
+      </div>
+      <div class="opportunity-item">
+        <div class="opportunity-title">⚠ 需求挖掘 4 字段全空</div>
+        <div class="opportunity-detail">购车阶段 / 预算 / 意向车型 / 功能兴趣 均未采集</div>
+        <div class="opportunity-rate">3 次 · 100%</div>
+      </div>
+      <div class="opportunity-item">
+        <div class="opportunity-title">⚠ 信心建立 3 字段全空</div>
+        <div class="opportunity-detail">实车介绍 / 核心体验 / 盲订权益 均未提，整轮外呼无一句产品内容</div>
+        <div class="opportunity-rate">3 次 · 100%</div>
+      </div>
+      <div class="opportunity-item">
+        <div class="opportunity-title">⚠ 客户抛"购车紧迫度信号"未被承接</div>
+        <div class="opportunity-detail">8016 张华：客户问"你们那个车什么时候出来呀"，未反问购车周期、未拉回本品</div>
+        <div class="opportunity-rate">1 次 · 33%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 2 -->
+  <div class="part-divider">
+    第二部分 · 个人数据对照
+    <span class="part-sub">再看个体：3 位座席的横向差异</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title">座席综合排行</div>
+    <div class="ranking-table">
+      <table>
+        <thead>
+          <tr>
+            <th>排名</th><th>座席</th><th>总分</th>
+            <th>自我介绍</th><th>封闭邀约</th><th>异议处理</th>
+            <th>信心建立</th><th>需求挖掘</th><th>邀约成功</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="top-row">
+            <td><span class="star">★</span>1</td><td>8014 李明</td>
+            <td><strong>43.4</strong></td>
+            <td>100</td><td>70</td><td>75</td><td>0</td><td>0</td><td>33</td>
+          </tr>
+          <tr class="top-row">
+            <td><span class="star">★</span>1</td><td>8013 刘红</td>
+            <td><strong>43.4</strong></td>
+            <td>100</td><td>70</td><td>75</td><td>0</td><td>0</td><td>33</td>
+          </tr>
+          <tr class="bottom-row">
+            <td>3</td><td>8016 张华</td>
+            <td class="negative"><strong>36.7</strong></td>
+            <td>100</td><td>70</td><td class="negative">30</td><td>0</td><td>0</td><td>33</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section-note">2 位座席并列第一（43.4 分）；8016 张华 36.7 分垫底，唯一失分维度为异议处理（30 vs 全店 60）</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">座席诊断卡</div>
+    <div class="agent-cards">
+      <div class="agent-card">
+        <div class="agent-header">8014 李明</div>
+        <div class="agent-score">43.4</div>
+        <div class="agent-level">待改进</div>
+        <div class="agent-desc">
+          <strong>亮点：</strong>开场 4 基线全中、城市确认清晰、主动询问称呼<br>
+          <strong>短板：</strong>需求挖掘 0、信心建立 0、未加微
+        </div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-header">8013 刘红</div>
+        <div class="agent-score">43.4</div>
+        <div class="agent-level">待改进</div>
+        <div class="agent-desc">
+          <strong>亮点：</strong>开场规范、应答准确、客户配合度高<br>
+          <strong>短板：</strong>需求挖掘 0、信心建立 0、未加微
+        </div>
+      </div>
+      <div class="agent-card warning">
+        <div class="agent-header">8016 张华</div>
+        <div class="agent-score">36.7</div>
+        <div class="agent-level">待改进（垫底）</div>
+        <div class="agent-desc">
+          <strong>亮点：</strong>承接稳定、口径合规、唯一位客户主动发问且未挂断<br>
+          <strong>短板：</strong>异议处理 30、信心建立 0
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">关键片段引用</div>
+
+    <div class="quote-block warning">
+      <div class="quote-label">▌客户主动发问未被承接 · 机会流失</div>
+      <div class="quote-content">
+        <div><span class="speaker">客户：</span>你们那个车什么时候出来呀？</div>
+        <div><span class="speaker">客服：</span>嗯，目前的话，全国网点还在规划建设阶段，门店将陆续开业，开业后会第一时间联系您的，张先生。</div>
+      </div>
+      <div class="quote-diagnosis">→ 8016 张华：承接稳但未反问紧迫度、未拉回本品卖点（核心体验/盲订权益/实车）</div>
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-label">▌规范开场示例 · 正例</div>
+      <div class="quote-content">
+        <div><span class="speaker">客服：</span>哎，您好，我是爱华汽车官方客服，工号 8014。看到您在官网上关注了爱华汽车，为了后续能够为您提供更好的体验和专属权益，能占用您一分钟时间确认几个问题，您看方便吗？</div>
+      </div>
+      <div class="quote-diagnosis">→ 开场 4 基线字段全命中（问候/品牌/工号/渠道来源），3 位座席同构，故自我介绍全店 100 分</div>
+    </div>
+
+    <div class="quote-block negative">
+      <div class="quote-label">▌收尾未加微保温 · 共性漏做</div>
+      <div class="quote-content">
+        <div><span class="speaker">客服：</span>打扰您了，感谢您的接听。如您后续有其他问题可随时联系我们，祝您生活愉快，再见。</div>
+        <div><span class="speaker">客户：</span>嗯，好的。再见。</div>
+      </div>
+      <div class="quote-diagnosis">→ 3 通收尾结构一致：感谢 → 祝愉快 → 再见，全程无加微动作，也没复述任何时间节点</div>
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-label">▌品牌口播不统一 · 待修正</div>
+      <div class="quote-content">
+        <div><span class="speaker">8014：</span>我是爱华汽车官方客服……</div>
+        <div><span class="speaker">8016 / 8013：</span>我是爱华品牌官方客服……</div>
+      </div>
+      <div class="quote-diagnosis">→ 同一家店两种品牌口播（"爱华汽车" vs "爱华品牌"），建议统一为官方全称</div>
+    </div>
+  </div>
+
+  <!-- Part 3 -->
+  <div class="part-divider">
+    第三部分 · 根因分析与改进建议
+    <span class="part-sub">最后看本质：差距从哪来，下一步怎么补</span>
+  </div>
+
+  <div class="section">
+    <div class="section-title">座席差距根因矩阵</div>
+    <div class="rc-card">
+      <div class="rc-question">为什么 8016 张华总分最低（36.7），其他 2 人都是 43.4？</div>
+      <div class="rc-compare">
+        <div class="rc-row"><div class="rc-dim">自我介绍</div><div class="rc-val">100</div><div class="rc-vs">vs</div><div class="rc-avg">100</div><div class="rc-mark ok">✓ 持平</div></div>
+        <div class="rc-row"><div class="rc-dim">封闭邀约</div><div class="rc-val">70</div><div class="rc-vs">vs</div><div class="rc-avg">70</div><div class="rc-mark ok">✓ 持平</div></div>
+        <div class="rc-row"><div class="rc-dim">异议处理</div><div class="rc-val">30</div><div class="rc-vs">vs</div><div class="rc-avg">60</div><div class="rc-mark bad">✗ -30pp 唯一失分点</div></div>
+        <div class="rc-row"><div class="rc-dim">信心建立</div><div class="rc-val">0</div><div class="rc-vs">vs</div><div class="rc-avg">0</div><div class="rc-mark ok">✓ 持平</div></div>
+        <div class="rc-row"><div class="rc-dim">需求挖掘</div><div class="rc-val">0</div><div class="rc-vs">vs</div><div class="rc-avg">0</div><div class="rc-mark ok">✓ 持平</div></div>
+        <div class="rc-row"><div class="rc-dim">邀约成功</div><div class="rc-val">33</div><div class="rc-vs">vs</div><div class="rc-avg">33</div><div class="rc-mark ok">✓ 持平</div></div>
+      </div>
+      <div class="rc-text">
+        <strong>根因：</strong>张华是 3 人中唯一遇到真实异议的座席（客户主动问"你们那个车什么时候出来呀"）。
+        他承接稳定、口径合规，但未按"承接 30 + 拉回本品 50 + 反问挖需 20"三段式执行，被扣至 30 分；
+        其余 2 人未遇到异议，按规则默认 75 分。<strong>这是打分口径的特性，不等于张华水平更差。</strong>
+      </div>
+      <div class="rc-insight">
+        <strong>启示：</strong>张华这通电话其实是全店最有价值的质检样本——客户主动发出购车紧迫度信号，
+        是最值得跟进的优质线索。若按升级话术执行（反问购车周期 + 植入核心卖点 + 加微保温），
+        该通话总分可达 <strong>60+</strong>。分数最低 ≠ 表现最差，而是唯一被真实场景检验的座席。
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">全店共性短板根因分析</div>
+    <div class="dark-card">
+      <div class="rc-question">为什么全员需求挖掘 0 分、信心建立 0 分？</div>
+      <div class="dark-block">
+        <div class="dark-block-title">直接原因</div>
+        <div class="dark-block-body">
+          <ul>
+            <li>3 段录音脚本均为"确认姓氏 + 确认城市 + 承诺开业通知"的轻量确认脚本</li>
+            <li>脚本设计本身未包含需求挖掘 4 字段（购车阶段/预算/车型/功能）</li>
+            <li>脚本设计本身未包含信心建立 3 字段（实车/核心体验/盲订权益）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="dark-block">
+        <div class="dark-block-title">深层原因</div>
+        <div class="dark-block-body">
+          <ul>
+            <li>盲订期目标定位为"信息确认 + 开业通知承诺"，非销售转化导向</li>
+            <li>座席培训尚未覆盖"客户主动发问 = 深度挖掘机会"的识别与承接</li>
+            <li>话术库缺少"异议承接后反问 + 拉回本品"的标准化模板</li>
+            <li>开场话术高度同构，说明座席在执行同一份模板，短板是脚本短板而非个人短板</li>
+          </ul>
+        </div>
+      </div>
+      <div class="dark-block">
+        <div class="dark-block-title">影响评估</div>
+        <div class="dark-block-body">
+          <ul>
+            <li>需求挖掘 0 分 → 客户分层运营缺少输入，后续跟进周期无法差异化</li>
+            <li>信心建立 0 分 → 盲订期品类教育窗口错失，品牌差异化定位未传递</li>
+            <li>邀约成功 33 分 → 加微率 0%，盲订期最核心 KPI 未达成，且卡住"优秀档"门槛（要求 ≥40）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">改进建议</div>
+    <div class="suggestions">
+
+      <div class="suggestion-item">
+        <div class="suggestion-dim">需求挖掘（全店 0 分，权重 0.20）</div>
+        <div class="suggestion-text">核心动作：结束前追加"四问闭环"，任问两问即可从 0 提到 50</div>
+        <div class="suggestion-template">
+          ① 您目前是首台车还是置换？<br>
+          ② 预算区间大致在多少？<br>
+          ③ 纯电和增程哪个更适合您？<br>
+          ④ 您更关注智能功能还是空间续航？
+        </div>
+      </div>
+
+      <div class="suggestion-item">
+        <div class="suggestion-dim">邀约成功（全店 33 分，权重 0.20）</div>
+        <div class="suggestion-text">核心动作：固定收尾加微话术，3 通同一个位置缺同一句话，一句话覆盖全店</div>
+        <div class="suggestion-template">
+          "我这边先加下您的微信，等门店开业和盲订权益发布，第一时间同步给您，方便吗？"
+        </div>
+      </div>
+
+      <div class="suggestion-item">
+        <div class="suggestion-dim">信心建立（全店 0 分，权重 0.15）</div>
+        <div class="suggestion-text">核心动作：客户问"车何时出来"时同步植入核心卖点；常规通话也可在确认城市后接一句</div>
+        <div class="suggestion-template">
+          "爱华汽车是以 AI 生态和智能座舱为核心的新能源车品牌，盲订期有专属权益（具体内容待定），门店开业后您可以现场体验实车。"
+        </div>
+      </div>
+
+      <div class="suggestion-item">
+        <div class="suggestion-dim">异议处理（张华 30 分 / 全店 60 分，权重 0.15）</div>
+        <div class="suggestion-text">核心动作：承接后追加反问 + 拉回本品，三段式缺一不可</div>
+        <div class="suggestion-template">
+          "我们正在紧锣密鼓筹备中，具体时间以官方发布为准。您大概什么时候打算提车？如果比较着急，我可以优先把 AI 生态体验和盲订权益（具体内容待定）同步给您。"
+        </div>
+      </div>
+
+      <div class="suggestion-item">
+        <div class="suggestion-dim">自我介绍（全店 100 分，权重 0.15）</div>
+        <div class="suggestion-text">当前话术已达标，可选择性补齐门店归属 + 意向车型埋点，进一步提升亲和力；同时统一品牌口播为官方全称</div>
+        <div class="suggestion-template">
+          "您好，我是爱华汽车 XX 门店顾问 XXX（工号 80XX），看到您在官网上关注了我们爱华汽车的 XX 款车型……"
+        </div>
+      </div>
+
+      <div class="suggestion-item">
+        <div class="suggestion-dim">封闭邀约（全店 70 分，权重 0.15）</div>
+        <div class="suggestion-text">核心动作：从"开业后邀请"升级为"开业时间二选一"</div>
+        <div class="suggestion-template">
+          "门店预计 X 月开业，届时我先约您周末上午过来看实车，还是工作日晚上您方便一些？"
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>dcc-zhijian · 汽车行业通用版 · 盲订期</div>
+    <div>规则对齐 0903 版本 · 生成于 2026-09-30</div>
+  </div>
+
+</div>
+</body>
+</html>

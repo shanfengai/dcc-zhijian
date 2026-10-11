@@ -1,0 +1,4 @@
+interface:
+  display_name: "DCC 话术质检"
+  short_description: "汽车线索首触外呼录音文字稿的 6 维度质检打分与同店座席批量对照报告。"
+  default_prompt: "DCC 质检一下这段录音：[粘贴文字稿]，品牌=XX汽车，阶段=盲订期。"

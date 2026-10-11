@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DCC Zhijian - 汽车 DCC 话术质检 Skill</title>
+  <meta name="description" content="汽车 DCC 线索首触外呼质检 Skill，按 6 维度打分并生成同店座席对照 HTML 报告。">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "HarmonyOS Sans", "Microsoft YaHei", Arial, sans-serif;
+      color: #202124;
+      background: #fff7f8;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .hero {
+      background: #c4001c;
+      color: #fff;
+      padding: 64px 24px 56px;
+    }
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    .eyebrow {
+      margin: 0 0 18px;
+      font-size: 14px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      opacity: .86;
+    }
+    h1 {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(40px, 7vw, 82px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 780px;
+      margin: 24px 0 0;
+      font-size: 20px;
+      color: rgba(255,255,255,.9);
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.4);
+    }
+    .button.primary {
+      color: #c4001c;
+      background: #fff;
+      border-color: #fff;
+    }
+    .section {
+      padding: 52px 0;
+    }
+    .section h2 {
+      margin: 0 0 20px;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #f0dadd;
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 0 2px 8px rgba(122,0,17,.05);
+    }
+    .card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #7a0011;
+      font-size: 17px;
+    }
+    .showcase {
+      display: grid;
+      gap: 28px;
+    }
+    .shot {
+      background: #fff;
+      border: 1px solid #f0dadd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(122,0,17,.08);
+    }
+    .shot h3 {
+      margin: 0;
+      padding: 16px 18px;
+      font-size: 18px;
+      border-bottom: 1px solid #f3e1e4;
+    }
+    .shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .code {
+      overflow-x: auto;
+      background: #2b2b2b;
+      color: #fff;
+      border-radius: 8px;
+      padding: 18px;
+      font-size: 14px;
+    }
+    footer {
+      padding: 34px 0;
+      color: #6e6e6e;
+      border-top: 1px solid #f0dadd;
+      background: #fff;
+    }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding-top: 44px; }
+    }
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+      .lead { font-size: 17px; }
+      .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Agent Skill for Automotive DCC QC</p>
+      <h1>DCC 话术质检，一键打分，一眼看懂。</h1>
+      <p class="lead">面向汽车 DCC 团队的线索首触外呼质检 Skill。把通话文字稿按 6 个关键维度自动评分，生成同店座席对照 HTML 报告。</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/shanfengai/dcc-zhijian">GitHub Repo</a>
+        <a class="button" href="dist/dcc-zhijian.zip">Download Skill</a>
+        <a class="button" href="examples/DCC质检对照长图.html">View Report Example</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="wrap">
+        <h2>不靠感觉，按维度拆开看</h2>
+        <div class="grid">
+          <div class="card"><strong>6 维度打分</strong>自我介绍、封闭邀约、异议处理、信心建立、需求挖掘、邀约成功。</div>
+          <div class="card"><strong>批量座席对照</strong>多通电话统一评分，一屏看清强项、短板和机会流失点。</div>
+          <div class="card"><strong>阶段可配置</strong>适配盲订期、开业期、正式期，评分口径跟着业务阶段走。</div>
+          <div class="card"><strong>品牌不写死</strong>品牌名、卖点词、权益词全部通过配置传入。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>报告预览</h2>
+        <div class="showcase">
+          <article class="shot">
+            <h3>1. 全店总览与评分水位</h3>
+            <img src="assets/screenshots/01-overview.png" alt="DCC 质检全店总览">
+          </article>
+          <article class="shot">
+            <h3>2. 座席对照与关键原话证据</h3>
+            <img src="assets/screenshots/02-agent-compare.png" alt="DCC 质检座席对照">
+          </article>
+          <article class="shot">
+            <h3>3. 根因分析与改进建议</h3>
+            <img src="assets/screenshots/03-root-cause.png" alt="DCC 质检根因分析">
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>安装</h2>
+        <pre class="code"><code>git clone https://github.com/shanfengai/dcc-zhijian ~/.codex/skills/dcc-zhijian</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">DCC Zhijian · MIT License · Automotive call quality inspection skill</div>
+  </footer>
+</body>
+</html>
